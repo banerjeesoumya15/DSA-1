@@ -78,6 +78,51 @@ class LinkedList:
             raise IndexError("pop from empty LinkedList")
         self.head = node.next
         return node.data
+    
+    def insertEnd(self, data):
+        '''
+        Insert node at the end of linked list
+        '''
+        node = Node(data)
+        if self.head is None:
+            self.head = node
+            return
+
+        # Linked list traversal
+        temp = self.head
+        while(temp.next is not None):
+            temp = temp.next
+
+        temp.next = node
+        return
+    
+    def deleteData(self, data):
+        '''
+        Delete first occurence of given data
+        '''
+        temp = self.head
+        
+        if temp is None:
+            return
+
+        # if head node is deleted
+        if temp.data == data:
+            self.head = temp.next
+            temp = None
+            return
+
+        # search for data
+        # previous node data is stored
+        while(temp):
+            if temp.data == data:
+                break
+            prev = temp
+            temp = temp.next
+
+        # delete the link
+        prev.next = temp.next
+        temp = None
+        return
 
 
 if __name__ == '__main__':
@@ -86,5 +131,8 @@ if __name__ == '__main__':
     ll.push('xyz')
     ll.push(1.1)
     ll.pop()
+    ll.insertEnd('END')
+    print(ll)
+    ll.deleteData(1)
     print(ll)
     print(list(ll))
